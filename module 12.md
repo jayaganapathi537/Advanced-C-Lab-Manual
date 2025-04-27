@@ -14,12 +14,73 @@ Algorithm:
 7.	Move to the next node using the next pointer.
  
 Program:
+```c
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct Node {
+    int data;
+    struct Node* next;
+};
+void push(struct Node** top, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));  // Create a new node
+    newNode->data = value; 
+    newNode->next = *top;  
+    *top = newNode;       
+    printf("Pushed %d onto the stack\n", value);
+}
+
+void display(struct Node* top) {
+    if (top == NULL) {
+        printf("Stack is empty.\n");
+        return;
+    }
+
+    struct Node* temp = top;
+    printf("Stack elements: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* stack = NULL; 
+    int choice, value;
+
+    while (1) {
+        printf("\nStack Operations:\n");
+        printf("1. Push an element\n");
+        printf("2. Display the stack\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the value to push: ");
+                scanf("%d", &value);
+                push(&stack, value);
+                break;
+            case 2:
+                display(stack);
+                break;
+            case 3:
+                printf("Exiting...\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
+}
+```
 
 Output:
 
-//paste your output here
+![image](https://github.com/user-attachments/assets/60c97eef-04cb-4efe-a602-1e510b7accab)
 
 
 Result:
@@ -38,13 +99,91 @@ Algorithm:
 3.	Else Proceed to the next step.
 4.	Set head to point to the next node in the stack.
  
-Program:
+Program: 
+```c #include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct Node {
+    int data;
+    struct Node* next;
+};
 
+void push(struct Node** top, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));  
+    newNode->data = value;  
+    newNode->next = *top;   
+    *top = newNode;          
+    printf("Pushed %d onto the stack\n", value);
+}
+
+int pop(struct Node** top) {
+    if (*top == NULL) {
+        printf("Stack is empty. Cannot pop.\n");
+        return -1; 
+    }
+    
+    struct Node* temp = *top;  
+    int poppedValue = temp->data; 
+    *top = (*top)->next;   
+    free(temp);           
+    return poppedValue;    
+
+void display(struct Node* top) {
+    if (top == NULL) {
+        printf("Stack is empty.\n");
+        return;
+    }
+
+    struct Node* temp = top;
+    printf("Stack elements: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* stack = NULL;  
+    int choice, value, poppedValue;
+
+    while (1) {
+        printf("\nStack Operations:\n");
+        printf("1. Push an element\n");
+        printf("2. Pop an element\n");
+        printf("3. Display the stack\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the value to push: ");
+                scanf("%d", &value);
+                push(&stack, value);
+                break;
+            case 2:
+                poppedValue = pop(&stack);
+                if (poppedValue != -1) {
+                    printf("Popped value: %d\n", poppedValue);
+                }
+                break;
+            case 3:
+                display(stack);
+                break;
+            case 4:
+                printf("Exiting...\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
+}
+```
 Output:
-
-//paste your output here
+![image](https://github.com/user-attachments/assets/354ee4a3-0d97-48bf-912e-0a50db73afef)
 
 
 
@@ -63,12 +202,90 @@ Algorithm:
 5.	End the display function.
  
 Program:
+```c
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct Node {
+    int data;
+    struct Node* next;
+};
 
+struct Queue {
+    struct Node* front;
+    struct Node* rear;
+};
+
+void initQueue(struct Queue* q) {
+    q->front = q->rear = NULL;
+}
+
+void enqueue(struct Queue* q, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));  // Create a new node
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (q->rear == NULL) {
+        q->front = q->rear = newNode;
+        printf("Enqueued %d to the queue\n", value);
+        return;
+    }
+
+    q->rear->next = newNode;
+    q->rear = newNode;
+    printf("Enqueued %d to the queue\n", value);
+}
+
+void display(struct Queue* q) {
+    if (q->front == NULL) {
+        printf("Queue is empty.\n");
+        return;
+    }
+
+    struct Node* temp = q->front;
+    printf("Queue elements: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Queue q;
+    initQueue(&q); 
+    int choice, value;
+
+    while (1) {
+        printf("\nQueue Operations:\n");
+        printf("1. Enqueue an element\n");
+        printf("2. Display the queue\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the value to enqueue: ");
+                scanf("%d", &value);
+                enqueue(&q, value);
+                break;
+            case 2:
+                display(&q);
+                break;
+            case 3:
+                printf("Exiting...\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
+}
+```
 Output:
-
-//paste your output here
+![image](https://github.com/user-attachments/assets/3ace0f1e-f9bf-451d-938e-60758a9eeb40)
 
 Result:
 Thus, the program to display queue elements using linked list is verified successfully.
@@ -89,12 +306,91 @@ Algorithm:
 6.	End of Enqueue Operation
  
 Program:
+```c
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Queue {
+    struct Node* front;
+    struct Node* rear;
+};
+
+void initQueue(struct Queue* q) {
+    q->front = q->rear = NULL;  
+}
+
+void enqueue(struct Queue* q, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));  // Create a new node
+    newNode->data = value;   
+    newNode->next = NULL;    
+
+    if (q->rear == NULL) {
+        q->front = q->rear = newNode;
+        printf("Enqueued %d to the queue\n", value);
+        return;
+    }
+
+    q->rear->next = newNode;
+    q->rear = newNode;
+    printf("Enqueued %d to the queue\n", value);
+}
+
+void display(struct Queue* q) {
+    if (q->front == NULL) {
+        printf("Queue is empty.\n");
+        return;
+    }
+
+    struct Node* temp = q->front;
+    printf("Queue elements: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Queue q;
+    initQueue(&q); 
+    int choice, value;
+
+    while (1) {
+        printf("\nQueue Operations:\n");
+        printf("1. Insert an element (enqueue)\n");
+        printf("2. Display the queue\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the value to insert: ");
+                scanf("%d", &value);
+                enqueue(&q, value);
+                break;
+            case 2:
+                display(&q);
+                break;
+            case 3:
+                printf("Exiting...\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
+}
+```
 
 Output:
-
-//paste your output here
+![image](https://github.com/user-attachments/assets/ac9f70f7-2d9a-4219-a522-4b72183c3701)
 
 Result:
 Thus, the program to insert elements in queue using linked list is verified successfully.
@@ -116,13 +412,104 @@ o	If the queue is empty (i.e., the front pointer is NULL), return an error or a 
 o	If the queue is not empty, return the data stored in the front node of the linked list (i.e., the element at the head of the queue).
 
 Program:
+```c
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+};
 
-//type your code here
+struct Queue {
+    struct Node* front;
+    struct Node* rear;
+};
+
+void initQueue(struct Queue* q) {
+    q->front = q->rear = NULL;  
+}
+void enqueue(struct Queue* q, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));  // Create a new node
+    newNode->data = value;   
+    newNode->next = NULL;    
+    if (q->rear == NULL) {
+        q->front = q->rear = newNode;
+        printf("Enqueued %d to the queue\n", value);
+        return;
+    }
+
+    q->rear->next = newNode;
+    q->rear = newNode;
+    printf("Enqueued %d to the queue\n", value);
+}
+
+void display(struct Queue* q) {
+    if (q->front == NULL) {
+        printf("Queue is empty.\n");
+        return;
+    }
+
+    struct Node* temp = q->front;
+    printf("Queue elements: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int peek(struct Queue* q) {
+    if (q->front == NULL) {
+        printf("Queue is empty. No front element to peek.\n");
+        return -1;
+    }
+
+    return q->front->data;
+}
+
+int main() {
+    struct Queue q;
+    initQueue(&q); 
+    int choice, value;
+
+    while (1) {
+        printf("\nQueue Operations:\n");
+        printf("1. Insert an element (enqueue)\n");
+        printf("2. Display the queue\n");
+        printf("3. Peek the front element\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the value to insert: ");
+                scanf("%d", &value);
+                enqueue(&q, value);
+                break;
+            case 2:
+                display(&q);
+                break;
+            case 3:
+                value = peek(&q);
+                if (value != -1) {
+                    printf("Front element is: %d\n", value);
+                }
+                break;
+            case 4:
+                printf("Exiting...\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
+}
+```
 
 Output:
-
-//paste your output here
-
+![image](https://github.com/user-attachments/assets/e3d928fa-f792-4722-8e32-0cd647cdf91d)
 
 
 Result:

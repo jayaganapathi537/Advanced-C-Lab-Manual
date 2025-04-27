@@ -15,19 +15,58 @@ Algorithm:
 4.	Exit the program.
  
 Program:
+```c
+#include <stdio.h>
 
-//type your code here
+int main() {
+    int number;
+
+    printf("Enter a number (1-9): ");
+    scanf("%d", &number);
+
+    switch (number) {
+        case 1:
+            printf("one\n");
+            break;
+        case 2:
+            printf("two\n");
+            break;
+        case 3:
+            printf("three\n");
+            break;
+        case 4:
+            printf("four\n");
+            break;
+        case 5:
+            printf("five\n");
+            break;
+        case 6:
+            printf("six\n");
+            break;
+        case 7:
+            printf("seven\n");
+            break;
+        case 8:
+            printf("eight\n");
+            break;
+        case 9:
+            printf("nine\n");
+            break;
+        default:
+            printf("number not in range 1-9\n");
+    }
+
+    return 0;
+}
+
+```
 
 
 
 
 Output:
 
-
-//paste your output here
-
-
-
+![image](https://github.com/user-attachments/assets/daad115d-3362-4d7f-876d-7ad14bc7d719)
 
 
 
@@ -46,19 +85,37 @@ Algorithm:
 6.	End
  
 Program:
+```c
+#include <stdio.h>
 
-//type your code here
+int main() {
+    char str[1000];
+    int freq[10] = {0};
 
+    printf("Enter a string of digits: ");
+    scanf("%s", str);
 
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] >= '0' && str[i] <= '9') {
+            freq[str[i] - '0']++;
+        }
+    }
 
+    for (int i = 0; i < 10; i++) {
+        if (i <= 3) {
+            printf("%d ", freq[i]);
+        } else {
+            printf("0 ");
+        }
+    }
 
+    printf("\n");
+
+    return 0;
+}
+```
 Output:
-
-
-//paste your output here
-
-
-
+![image](https://github.com/user-attachments/assets/11b131c2-13ef-4d42-a62c-5252a1e40080)
 
 
 
@@ -83,20 +140,71 @@ Free the memory allocated for each string in s Free the memory allocated for s
 7.	End
  
 Program:
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-//type your code here
+void swap(char *x, char *y) {
+    char temp = *x;
+    *x = *y;
+    *y = temp;
+}
+int compare(const void *a, const void *b) {
+    return (*(char *)a - *(char *)b);
+}
 
+int next_permutation(char *str, int len) {
+    int i = len - 2;
+ character
+    while (i >= 0 && str[i] >= str[i + 1]) {
+        i--;
+    }
+
+    if (i < 0) {
+        return 0;
+    }
+ str[i]
+    int j = len - 1;
+    while (str[j] <= str[i]) {
+        j--;
+    }
+    swap(&str[i], &str[j]);
+    int start = i + 1, end = len - 1;
+    while (start < end) {
+        swap(&str[start], &str[end]);
+        start++;
+        end--;
+    }
+
+    return 1;
+}
+
+int main() {
+    char str[100];
+
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    int len = strlen(str);
+
+    qsort(str, len, sizeof(char), compare);
+
+    printf("%s\n", str);
+
+    while (next_permutation(str, len)) {
+        printf("%s\n", str);
+    }
+
+    return 0;
+}
+```
 
 
 
 Output:
 
-
-//paste your output here
-
-
-
-
+![image](https://github.com/user-attachments/assets/7777dd18-9393-4416-a258-217b329ea245)
 
 
 Result:
@@ -116,16 +224,30 @@ Algorithm:
 7.	End
  
 Program:
+```c
+#include <stdio.h>
 
-//type your code here
+int main() {
+    int n;
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++) {
+            printf("%d ", j);  // Print number
+        }
+        printf("\n");
+    }
 
+    return 0;
+}
+
+```
 
 
 
 Output:
+![image](https://github.com/user-attachments/assets/85f54e61-cec0-43c8-ace4-d2c1c6afd094)
 
-
-//paste your output here
 
 
 
@@ -155,16 +277,27 @@ o	Call the square() function and display the result.
 5.	End.
 
 Program:
+```c
+#include <stdio.h>
+int square() {
+    int num;
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    return num * num;
+}
 
-//type your code here
+int main() {
+    int result = square();
+    printf("The square of the number is: %d\n", result);
 
-
-
+    return 0;
+}
+```
 
 Output:
 
+![image](https://github.com/user-attachments/assets/2f092f63-0834-4d51-b1a2-af339cc8b055)
 
-//paste your output here
 
 
 
